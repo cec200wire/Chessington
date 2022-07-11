@@ -12,18 +12,96 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             List<Square> validMoves = new List<Square>();
-            for (int i = 0; i < 8; i++)
+            bool[] passage = { true, true, true, true };
+            Square potentialMove = new Square();
+            for (int i = 1; i < 8; i++)
             {
-                if (i != currentSquare.Row)
+                if (passage[0])
                 {
-                    validMoves.Add(Square.At(i, currentSquare.Col));
-                }
+                    potentialMove = Square.At(currentSquare.Row + i, currentSquare.Col);
+                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
+                        (potentialMove.Col < 8))
+                    {
+                        if (board.GetPiece(potentialMove) == null)
+                        {
+                            validMoves.Add(potentialMove);
+                        }
+                        else
+                        {
+                            passage[0] = false;
+                        }
+                    }
+                    else
+                    {
+                        passage[0] = false;
+                    }
 
-                if (i != currentSquare.Col)
+                }
+                if (passage[1])
                 {
-                    validMoves.Add(Square.At(currentSquare.Row, i)); 
+                    potentialMove = Square.At(currentSquare.Row - i, currentSquare.Col);
+                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
+                        (potentialMove.Col < 8))
+                    {
+                        if (board.GetPiece(potentialMove) == null)
+                        {
+                            validMoves.Add(potentialMove);
+                        }
+                        else
+                        {
+                            passage[1] = false;
+                        }
+                    }
+                    else
+                    {
+                        passage[1] = false;
+                    }
+
+                }
+                if (passage[2])
+                {
+                    potentialMove = Square.At(currentSquare.Row, currentSquare.Col + i);
+                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
+                        (potentialMove.Col < 8))
+                    {
+                        if (board.GetPiece(potentialMove) == null)
+                        {
+                            validMoves.Add(potentialMove);
+                        }
+                        else
+                        {
+                            passage[2] = false;
+                        }
+                    }
+                    else
+                    {
+                        passage[2] = false;
+                    }
+
+                }
+                if (passage[3])
+                {
+                    potentialMove = Square.At(currentSquare.Row, currentSquare.Col - i);
+                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
+                        (potentialMove.Col < 8))
+                    {
+                        if (board.GetPiece(potentialMove) == null)
+                        {
+                            validMoves.Add(potentialMove);
+                        }
+                        else
+                        {
+                            passage[3] = false;
+                        }
+                    }
+                    else
+                    {
+                        passage[3] = false;
+                    }
+
                 }
             }
+            
             return validMoves;
         }
     }
