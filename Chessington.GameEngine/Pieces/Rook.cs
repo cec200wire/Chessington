@@ -19,86 +19,51 @@ namespace Chessington.GameEngine.Pieces
                 if (passage[0])
                 {
                     potentialMove = Square.At(currentSquare.Row + i, currentSquare.Col);
-                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
-                        (potentialMove.Col < 8))
+                    if (PieceMethods.CheckMove(board, potentialMove, passage, 0))
                     {
-                        if (board.GetPiece(potentialMove) == null)
-                        {
-                            validMoves.Add(potentialMove);
-                        }
-                        else
-                        {
-                            passage[0] = false;
-                        }
+                        validMoves.Add(potentialMove);
                     }
                     else
                     {
                         passage[0] = false;
                     }
-
                 }
                 if (passage[1])
                 {
                     potentialMove = Square.At(currentSquare.Row - i, currentSquare.Col);
-                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
-                        (potentialMove.Col < 8))
+                    if (PieceMethods.CheckMove(board, potentialMove, passage, 1))
                     {
-                        if (board.GetPiece(potentialMove) == null)
-                        {
-                            validMoves.Add(potentialMove);
-                        }
-                        else
-                        {
-                            passage[1] = false;
-                        }
+                        validMoves.Add(potentialMove);
                     }
                     else
                     {
                         passage[1] = false;
                     }
-
                 }
                 if (passage[2])
                 {
                     potentialMove = Square.At(currentSquare.Row, currentSquare.Col + i);
-                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
-                        (potentialMove.Col < 8))
+                    if (PieceMethods.CheckMove(board, potentialMove, passage, 2))
                     {
-                        if (board.GetPiece(potentialMove) == null)
-                        {
-                            validMoves.Add(potentialMove);
-                        }
-                        else
-                        {
-                            passage[2] = false;
-                        }
+                        validMoves.Add(potentialMove);
                     }
                     else
                     {
                         passage[2] = false;
                     }
-
                 }
+                
                 if (passage[3])
                 {
                     potentialMove = Square.At(currentSquare.Row, currentSquare.Col - i);
-                    if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) &
-                        (potentialMove.Col < 8))
+                    if (PieceMethods.CheckMove(board, potentialMove, passage, 3))
                     {
-                        if (board.GetPiece(potentialMove) == null)
-                        {
-                            validMoves.Add(potentialMove);
-                        }
-                        else
-                        {
-                            passage[3] = false;
-                        }
+                        validMoves.Add(potentialMove);
                     }
                     else
                     {
                         passage[3] = false;
                     }
-
                 }
             }
             
