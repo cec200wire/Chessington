@@ -12,24 +12,28 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             List<Square> validMoves = new List<Square>();
-            List<Square> potentialMoves = new List<Square>();
-            
-            potentialMoves.Add(Square.At(currentSquare.Row + 1, currentSquare.Col - 1));
-            potentialMoves.Add(Square.At(currentSquare.Row + 1, currentSquare.Col + 0));
-            potentialMoves.Add(Square.At(currentSquare.Row + 1, currentSquare.Col + 1));
-            potentialMoves.Add(Square.At(currentSquare.Row + 0, currentSquare.Col + 1));
-            potentialMoves.Add(Square.At(currentSquare.Row - 1, currentSquare.Col + 1));
-            potentialMoves.Add(Square.At(currentSquare.Row - 1, currentSquare.Col + 0));
-            potentialMoves.Add(Square.At(currentSquare.Row - 1, currentSquare.Col - 1));
-            potentialMoves.Add(Square.At(currentSquare.Row + 0, currentSquare.Col - 1));
-
-            foreach (Square potentialMove in potentialMoves){
-                if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) & (potentialMove.Col < 8))
+            bool[] passage = { true, true, true, true , true, true, true, true};
+            Square potentialMove = new Square();
+            int[,] movements = {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
+            for (int direction = 0; direction < 8; direction++)
+            {
+                if (passage[direction])
                 {
-                    validMoves.Add(potentialMove);
+                    potentialMove = Square.At(currentSquare.Row + movements[direction, 0], currentSquare.Col + movements[direction, 1]);
+                    if (PieceMethods.ConfirmSpace(board, potentialMove))
+                    {
+                        validMoves.Add(potentialMove);
+                    }
+                    else
+                    {
+                        passage[direction] = false;
+                        if (PieceMethods.ConfirmOpponent(board, potentialMove, Player))
+                        {
+                            validMoves.Add(potentialMove);
+                        }
+                    }
                 }
             }
-            
             return validMoves;
         }
     }
