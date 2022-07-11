@@ -36,7 +36,15 @@ namespace Chessington.GameEngine.Pieces
                     }
                 }
             }
-            
+
+            for (int side = -1; side < 2; side += 2)
+            {
+                potentialMove = Square.At(currentSquare.Row + direction, currentSquare.Col + side);
+                if (PieceMethods.ConfirmOpponent(board, potentialMove, Player))
+                {
+                    validMoves.Add(potentialMove);
+                }
+            }
 
             return validMoves;
         }

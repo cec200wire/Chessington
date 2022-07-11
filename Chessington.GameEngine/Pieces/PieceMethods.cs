@@ -24,9 +24,12 @@ public class PieceMethods
         bool opponent = false;
         if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) & (potentialMove.Col < 8))
         {
-            if (board.GetPiece(potentialMove).Player != currentPlayer)
+            if ((board.GetPiece(potentialMove)) != null)
             {
-                opponent = true;
+                if (board.GetPiece(potentialMove).Player != currentPlayer)
+                {
+                    opponent = true;
+                }
             }
         }
         return opponent;
