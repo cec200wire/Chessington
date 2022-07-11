@@ -50,11 +50,13 @@ namespace Chessington.GameEngine.Pieces
             return validMoves;
         }
         
+        //Pawn Promotion
         public static Piece PawnPromotion(Player currentPlayer)
         {
             Piece promoted = new Pawn(currentPlayer);
             Console.WriteLine("What would you like to promote the pawn to?");
             string promotionChoice = Console.ReadLine();
+            promotionChoice = "queen";//Promotion currently returns queen by default
             switch (promotionChoice)
             {
                 case "queen":
@@ -72,8 +74,6 @@ namespace Chessington.GameEngine.Pieces
                 default:
                     break;
             }
-
-            promoted = new Queen(currentPlayer); //currently default promotes to this Queen
             return promoted;
         }
     }

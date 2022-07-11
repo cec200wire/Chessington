@@ -36,7 +36,7 @@ namespace Chessington.GameEngine.Pieces
             }
             
             //Castling
-            if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col])
+            if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col] & (currentSquare.Row == 0 || currentSquare.Row == 7))
             {
                 if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col + 3])
                 {
