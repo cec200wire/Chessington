@@ -12,22 +12,22 @@ namespace Chessington.GameEngine.Pieces
         public override IEnumerable<Square> GetAvailableMoves(Board board)
         {
             var currentSquare = board.FindPiece(this);
-            Square[] validMoves = Array.Empty<Square>();
+            List<Square> validMoves = new List<Square>();
+            int direction = 0;
             if (Player == Player.Black)
             {
-                validMoves = new Square[]
-                {
-                    Square.At(currentSquare.Row + 1, currentSquare.Col)
-                };
+                direction = 1;
             }
             else
             {
-                validMoves = new Square[]
-                {
-                    Square.At(currentSquare.Row - 1, currentSquare.Col)
-                };
+                direction = -1;
             }
 
+            validMoves.Add(Square.At(currentSquare.Row + direction, currentSquare.Col));
+            if ((currentSquare.Row-direction)%8 == 0)
+            {
+                validMoves.Add(Square.At(currentSquare.Row + 2*direction, currentSquare.Col));
+            }
             return validMoves;
         }
     }
