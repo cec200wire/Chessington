@@ -27,7 +27,7 @@ namespace Chessington.GameEngine.Pieces
             if (PieceMethods.ConfirmSpace(board, potentialMove))
             {
                 validMoves.Add(potentialMove);
-                if ((currentSquare.Row-direction)%8 == 0)
+                if ((currentSquare.Row-direction)%7 == 0)
                 {
                     potentialMove = Square.At(currentSquare.Row + 2 * direction, currentSquare.Col);
                     if (PieceMethods.ConfirmSpace(board, potentialMove))
