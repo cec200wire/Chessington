@@ -57,9 +57,34 @@ namespace Chessington.GameEngine
             }
 
             //Move the piece and set the 'from' square to be empty.
-            _board[to.Row, to.Col] = _board[from.Row, from.Col];
-            _board[from.Row, from.Col] = null;
-
+            MovementTrack.StartingPositions = MovementTrack.ChangeInPosition(from, MovementTrack.StartingPositions);
+            if (_board[from.Row, from.Col] is Pawn & (to.Row == 0 || to.Row == 7))
+            {
+                _board[to.Row, to.Col] = Pawn.PawnPromotion(movingPiece.Player);
+            }
+            else
+            {
+                _board[to.Row, to.Col] = _board[from.Row, from.Col];
+            }
+            
+            if (_board[from.Row, from.Col] is King & (Math.Abs(to.Col-from.Col)>1))
+            {
+                if (to.Col == 1)
+                {
+                    _board[from.Row, from.Col] = _board[from.Row, 0];
+                    _board[from.Row, 0] = null;
+                }
+                else
+                {
+                    _board[from.Row, from.Col] = _board[from.Row, 7];
+                    _board[from.Row, 7] = null;
+                }
+            }
+            else
+            {
+                _board[from.Row, from.Col] = null;
+            }
+            
             CurrentPlayer = movingPiece.Player == Player.White ? Player.Black : Player.White;
             OnCurrentPlayerChanged(CurrentPlayer);
         }

@@ -34,6 +34,27 @@ namespace Chessington.GameEngine.Pieces
                     }
                 }
             }
+            
+            //Castling
+            if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col])
+            {
+                if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col + 3])
+                {
+                    potentialMove = Square.At(currentSquare.Row, currentSquare.Col + 2);
+                    if (PieceMethods.ConfirmSpace(board, potentialMove))
+                    {
+                        validMoves.Add(potentialMove);
+                    }
+                }
+                if (MovementTrack.StartingPositions[currentSquare.Row, currentSquare.Col - 4])
+                {
+                    potentialMove = Square.At(currentSquare.Row, currentSquare.Col - 3);
+                    if (PieceMethods.ConfirmSpace(board, potentialMove))
+                    {
+                        validMoves.Add(potentialMove);
+                    }
+                }
+            }
             return validMoves;
         }
     }

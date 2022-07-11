@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace Chessington.GameEngine.Pieces
 {
@@ -47,6 +48,33 @@ namespace Chessington.GameEngine.Pieces
             }
 
             return validMoves;
+        }
+        
+        public static Piece PawnPromotion(Player currentPlayer)
+        {
+            Piece promoted = new Pawn(currentPlayer);
+            Console.WriteLine("What would you like to promote the pawn to?");
+            string promotionChoice = Console.ReadLine();
+            switch (promotionChoice)
+            {
+                case "queen":
+                    promoted = new Queen(currentPlayer);
+                    break;
+                case "bishop":
+                    promoted = new Bishop(currentPlayer);
+                    break;
+                case "rook":
+                    promoted = new Rook(currentPlayer);
+                    break;
+                case "knight":
+                    promoted = new Knight(currentPlayer);
+                    break;
+                default:
+                    break;
+            }
+
+            promoted = new Queen(currentPlayer); //currently default promotes to this Queen
+            return promoted;
         }
     }
 }
