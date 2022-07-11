@@ -29,6 +29,10 @@ namespace Chessington.GameEngine.Pieces
                         else
                         {
                             passage[direction] = false;
+                            if (PieceMethods.ConfirmOpponent(board, potentialMove, Player))
+                            {
+                                validMoves.Add(potentialMove);
+                            }
                         }
                     }
                 }

@@ -24,12 +24,18 @@ namespace Chessington.GameEngine.Pieces
             potentialMoves.Add(Square.At(currentSquare.Row - 1, currentSquare.Col - 2));
 
             foreach (Square potentialMove in potentialMoves){
-                if ((-1 < potentialMove.Row) & (potentialMove.Row < 8) & (-1 < potentialMove.Col) & (potentialMove.Col < 8))
+                if (PieceMethods.ConfirmSpace(board, potentialMove))
                 {
                     validMoves.Add(potentialMove);
                 }
+                else
+                {
+                    if (PieceMethods.ConfirmOpponent(board, potentialMove, Player))
+                    {
+                        validMoves.Add(potentialMove);
+                    }
+                }
             }
-            
             return validMoves;
         }
     }
