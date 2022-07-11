@@ -23,11 +23,21 @@ namespace Chessington.GameEngine.Pieces
                 direction = -1;
             }
 
-            validMoves.Add(Square.At(currentSquare.Row + direction, currentSquare.Col));
-            if ((currentSquare.Row-direction)%8 == 0)
+            Square potentialMove = Square.At(currentSquare.Row + direction, currentSquare.Col);
+            if (board.GetPiece(potentialMove) == null)
             {
-                validMoves.Add(Square.At(currentSquare.Row + 2*direction, currentSquare.Col));
+                validMoves.Add(potentialMove);
+                if ((currentSquare.Row-direction)%8 == 0)
+                {
+                    potentialMove = Square.At(currentSquare.Row + 2 * direction, currentSquare.Col);
+                    if (board.GetPiece(potentialMove) == null)
+                    {
+                        validMoves.Add(potentialMove);
+                    }
+                }
             }
+            
+
             return validMoves;
         }
     }
