@@ -24,7 +24,7 @@ namespace Chessington.GameEngine.Pieces
                     if (passage[direction])
                     {
                         potentialMove = Square.At(currentSquare.Row + movements[direction, 0]*i, currentSquare.Col + movements[direction, 1]*i);
-                        if (PieceMethods.CheckMove(board, potentialMove))
+                        if (PieceMethods.ConfirmSpace(board, potentialMove))
                         {
                             validMoves.Add(potentialMove);
                         }
