@@ -24,13 +24,13 @@ namespace Chessington.GameEngine.Pieces
             }
 
             Square potentialMove = Square.At(currentSquare.Row + direction, currentSquare.Col);
-            if (board.GetPiece(potentialMove) == null)
+            if (PieceMethods.CheckMove(board, potentialMove))
             {
                 validMoves.Add(potentialMove);
                 if ((currentSquare.Row-direction)%8 == 0)
                 {
                     potentialMove = Square.At(currentSquare.Row + 2 * direction, currentSquare.Col);
-                    if (board.GetPiece(potentialMove) == null)
+                    if (PieceMethods.CheckMove(board, potentialMove))
                     {
                         validMoves.Add(potentialMove);
                     }
