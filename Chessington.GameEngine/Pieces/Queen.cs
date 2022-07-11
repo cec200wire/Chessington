@@ -14,23 +14,23 @@ namespace Chessington.GameEngine.Pieces
         {
             var currentSquare = board.FindPiece(this);
             List<Square> validMoves = new List<Square>();
-            for (int i = 0; i < 8; i++)
+            bool[] passage = { true, true, true, true , true, true, true, true};
+            Square potentialMove = new Square();
+            int[,] movements = {{1,0},{1,1},{0,1},{-1,1},{-1,0},{-1,-1},{0,-1},{1,-1}};
+            for (int i = 1; i < 8; i++)
             {
-                for (int j = 0; j < 8; j++)
+                for (int direction = 0; direction < 8; direction++)
                 {
-                    int displaceRow = currentSquare.Row - i;
-                    int displaceCol = currentSquare.Col - j;
-
-                    if (displaceRow != 0 || displaceCol != 0)
+                    if (passage[direction])
                     {
-                        if (displaceRow * displaceCol == 0)
+                        potentialMove = Square.At(currentSquare.Row + movements[direction, 0]*i, currentSquare.Col + movements[direction, 1]*i);
+                        if (PieceMethods.CheckMove(board, potentialMove, direction))
                         {
-                            validMoves.Add(Square.At(i, j));
+                            validMoves.Add(potentialMove);
                         }
-
-                        else if (Math.Abs(displaceRow) == Math.Abs(displaceCol))
+                        else
                         {
-                            validMoves.Add(Square.At(i, j));
+                            passage[direction] = false;
                         }
                     }
                 }
